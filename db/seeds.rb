@@ -5,25 +5,26 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Park.destroy_all
-Review.destroy_all
+require 'rest-client'
 
-# parks = [
+# Park.destroy_all
+# Review.destroy_all
 
-# ]
-def parks 
-    response = RestClient.get "https://developer.nps.gov/api/v1/parks?limit=3&sort=&api_key=ZOStE88Yuf4ZqvJ39vxpOBLa4tcviH7vKUcaZBQE"
-    json = JSON.parse response
 
-    if !json.nil?
-        json["data"].map do |park|
-            Park.create(name: "#{park["fullName"]}")
-        end
-    else
-        puts "error seeding parks"
-    end
+response = RestClient.get "https://developer.nps.gov/api/v1/parks?limit=3&sort=&api_key=ZOStE88Yuf4ZqvJ39vxpOBLa4tcviH7vKUcaZBQE"
+json = JSON.parse(response)["data"]
+ 
+
+json.map do |park|
+    Park.create(name: park["fullName"],
+     description: park["description"], 
+     states: park["states"], 
+     images: park["images"], 
+     activities: park["activities"].map do |activities| activities["name"] end, 
+    entrance_fees: park["entranceFees"], 
+    latlong: park["latLong"])
 end
-
+ 
 
 
 # states = [
