@@ -11,7 +11,7 @@ require 'rest-client'
 # Review.destroy_all
 
 
-response = RestClient.get "https://developer.nps.gov/api/v1/parks?limit=3&sort=&api_key=ZOStE88Yuf4ZqvJ39vxpOBLa4tcviH7vKUcaZBQE"
+response = RestClient.get "https://developer.nps.gov/api/v1/parks?limit=496&q=national%20park&api_key=ZOStE88Yuf4ZqvJ39vxpOBLa4tcviH7vKUcaZBQE"
 json = JSON.parse(response)["data"]
  
 
@@ -20,8 +20,11 @@ json.map do |park|
      description: park["description"], 
      states: park["states"], 
      images: park["images"], 
-     activities: park["activities"].map do |activities| activities["name"] end, 
+     activities: park["activities"],
     entrance_fees: park["entranceFees"], 
+    entrance_passes: park["entrancePasses"],
+    weather_info: park["weatherInfo"],
+    designation: park["designation"],
     latlong: park["latLong"])
 end
  

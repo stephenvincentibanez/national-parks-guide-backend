@@ -7,6 +7,9 @@ class CreateParks < ActiveRecord::Migration[6.0]
       t.string :images
       t.string :activities
       t.string :entrance_fees
+      t.string :entrance_passes
+      t.string :weather_info
+      t.string :designation
       t.string :latlong
 
       t.timestamps
