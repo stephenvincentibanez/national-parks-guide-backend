@@ -5,9 +5,12 @@ class ParksController < ApplicationController
     end
 
     def search
-        # byebug
-        state = params[:state]
-        # render json: {success: "fuck yeah"}
+        state = params[:query]
+        parks = Park.all.select do |park|
+            park.states === state
+            # byebug
+        end
+        render json: parks
     end
 
 end
