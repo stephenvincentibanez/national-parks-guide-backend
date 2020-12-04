@@ -11,7 +11,9 @@ class ReviewsController < ApplicationController
     end
 
     def update
-        
+        review = Review.find_by_id(params[:id])
+        review.update(comment: params[:comment])
+        render json: review
     end
 
     def destroy
