@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   resources :parks, only: [:index]
   get '/park_search', to: "parks#search"
   resources :users, only: [:index, :create]
-  resources :reviews, only: [:index, :create, :update, :delete]
+  resources :reviews, only: [:index, :create, :update, :destroy]
 
 end
